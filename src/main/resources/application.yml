@@ -1,1 +1,9 @@
-
+server:
+  port: 8080
+spring:
+  application:
+    name: dynamic-scheduler
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/dynamic-scheduler
+    username: root
+    password: 123456
