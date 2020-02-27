@@ -22,7 +22,8 @@ public class QuartzService {
     }
 
     public List<SchedulerTask> getAllSchedulerTasks() {
-        return schedulerWrapper.getJobGroupNames().stream()
+        return schedulerWrapper.getJobGroupNames()
+            .stream()
             .flatMap(groupName -> schedulerWrapper.getJobKeys(GroupMatcher.jobGroupEquals(groupName)).stream())
             .flatMap(jobKey -> getSchedulerTasksByJobKey(schedulerWrapper, jobKey).stream())
             .collect(Collectors.toList());
