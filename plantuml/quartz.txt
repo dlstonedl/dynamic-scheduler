@@ -1,0 +1,36 @@
+@startuml
+
+interface Job
+abstract class QuartzJobBean
+Job <|.. QuartzJobBean :implements
+
+interface JobFactory
+class SpringBeanJobFactory
+JobFactory .> Job
+JobFactory <|-- SpringBeanJobFactory
+
+interface JobDetail
+class JobDetailImpl
+class JobDetailFactoryBean
+JobDetail "1" -left> "1" Job :contains
+JobDetail <|.. JobDetailImpl :implements
+JobDetailFactoryBean --> JobDetail :contains
+
+interface Trigger
+interface SimpleTrigger
+interface CronTrigger
+Trigger <|-- SimpleTrigger :extends
+Trigger <|-- CronTrigger :extends
+Trigger .left> JobDetail
+
+class CronTriggerFactoryBean
+class SimpleTriggerFactoryBean
+CronTrigger <-- CronTriggerFactoryBean :contains
+SimpleTrigger <-- SimpleTriggerFactoryBean :contains
+
+interface Scheduler
+class SchedulerFactoryBean
+Scheduler .left> Trigger
+Scheduler <- SchedulerFactoryBean
+
+@enduml
