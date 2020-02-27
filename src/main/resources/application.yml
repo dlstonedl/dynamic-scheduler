@@ -7,3 +7,20 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dynamic-scheduler
     username: root
     password: 123456
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    wait-for-jobs-to-complete-on-shutdown: true
+    startup-delay: 3s
+    properties:
+      # scheduler instance
+      org.quartz.scheduler.instanceName: QuartzCluster
+      org.quartz.scheduler.instanceId: AUTO
+      # configure threadPool
+      org.quartz.threadPool.class: org.quartz.simpl.SimpleThreadPool
+      org.quartz.threadPool.threadCount: 25
+      org.quartz.jobStore.isClustered: true
+
+
+
