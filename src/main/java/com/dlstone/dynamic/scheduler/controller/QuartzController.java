@@ -37,7 +37,7 @@ public class QuartzController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/jobs/{jobGroup}/{jobName}")
+    @PutMapping("/jobs/{jobGroup}/{jobName}")
     public ResponseEntity updateJob(@PathVariable String jobGroup,
                                     @PathVariable String jobName,
                                     @RequestBody UpdateJobRequest updateJobRequest) {

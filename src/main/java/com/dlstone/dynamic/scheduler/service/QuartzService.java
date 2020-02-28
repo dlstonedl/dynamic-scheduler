@@ -45,19 +45,20 @@ public class QuartzService {
 
     @Transactional
     public void addJob(SchedulerTask schedulerTask) {
-        JobDetail jobDetail = newJobDetail(schedulerTask, schedulerWrapper);
+        JobKey jobKey = newJobKey(schedulerTask, schedulerWrapper);
+        JobDetail jobDetail = newJobDetail(schedulerTask, jobKey);
         CronTrigger cronTrigger = newCronTrigger(schedulerTask, jobDetail);
         schedulerWrapper.scheduleJob(jobDetail, cronTrigger);
     }
 
     @Transactional
     public void deleteJob(String jobGroup, String jobName) {
-        schedulerWrapper.deleteJob(new JobKey(jobGroup, jobName));
+        schedulerWrapper.deleteJob(new JobKey(jobName, jobGroup));
     }
 
     @Transactional
     public void updateJob(SchedulerTask schedulerTask) {
-        JobDetail jobDetail = newJobDetail(schedulerTask, schedulerWrapper);
+        JobDetail jobDetail = newJobDetail(schedulerTask, new JobKey(schedulerTask.getJobName(), schedulerTask.getJobGroup()));
         CronTrigger cronTrigger = newCronTrigger(schedulerTask, jobDetail);
         schedulerWrapper.scheduleJob(jobDetail, Sets.newHashSet(cronTrigger), true);
     }
@@ -73,9 +74,7 @@ public class QuartzService {
             .build();
     }
 
-    private JobDetail newJobDetail(SchedulerTask schedulerTask, SchedulerWrapper schedulerWrapper) {
-        JobKey jobKey = newJobKey(schedulerTask, schedulerWrapper);
-
+    private JobDetail newJobDetail(SchedulerTask schedulerTask, JobKey jobKey) {
         return JobBuilder.newJob()
             .ofType(JobTemplate.class)
             .storeDurably()
