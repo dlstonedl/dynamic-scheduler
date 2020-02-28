@@ -1,10 +1,11 @@
 package com.dlstone.dynamic.scheduler.controller;
 
+import com.dlstone.dynamic.scheduler.controller.request.JobRequest;
 import com.dlstone.dynamic.scheduler.model.SchedulerTask;
+import com.dlstone.dynamic.scheduler.model.SchedulerTaskFactory;
 import com.dlstone.dynamic.scheduler.service.QuartzService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +22,12 @@ public class QuartzController {
     @GetMapping("/jobs")
     public List<SchedulerTask> getAllSchedulerTasks() {
         return quartzService.getAllSchedulerTasks();
+    }
+
+    @PostMapping("/jobs")
+    public ResponseEntity addJob(@RequestBody JobRequest jobRequest) {
+        SchedulerTask schedulerTask = SchedulerTaskFactory.generateSchedulerTask(jobRequest);
+        quartzService.addJob(schedulerTask);
+        return ResponseEntity.ok().build();
     }
 }

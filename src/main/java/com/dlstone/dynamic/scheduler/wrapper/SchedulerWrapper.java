@@ -7,6 +7,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -64,6 +65,26 @@ public class SchedulerWrapper {
         }
         return null;
     }
+
+    public boolean checkExists(JobKey jobKey) {
+        try {
+            return schedulerFactoryBean.getScheduler().checkExists(jobKey);
+        } catch (SchedulerException e) {
+            throwRuntimeException(e);
+        }
+        return false;
+    }
+
+    public Date scheduleJob(JobDetail jobDetail, Trigger trigger) {
+        try {
+            return schedulerFactoryBean.getScheduler().scheduleJob(jobDetail, trigger);
+        } catch (SchedulerException e) {
+            throwRuntimeException(e);
+        }
+        return null;
+    }
+
+
 
     private void throwRuntimeException(SchedulerException e) {
         log.error("SchedulerWrapper: " + e);
