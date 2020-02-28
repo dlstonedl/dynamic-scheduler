@@ -10,6 +10,8 @@ import org.quartz.Trigger;
 
 public class SchedulerTaskFactory {
 
+    public static final String URL = "url";
+
     public static SchedulerTask generateSchedulerTask(SchedulerWrapper schedulerWrapper, JobDetail jobDetail, Trigger trigger) {
         SchedulerTask schedulerTask = new SchedulerTask();
 
@@ -39,13 +41,13 @@ public class SchedulerTaskFactory {
         schedulerTask.setJobTriggerGroupName(jobRequest.jobGroupName);
 
         JobDataMap jobDataMap = new JobDataMap();
-        jobDataMap.put("url", jobRequest.url);
+        jobDataMap.put(URL, jobRequest.url);
         schedulerTask.setJobDataMap(jobDataMap);
 
         return schedulerTask;
     }
 
-    public static SchedulerTask generateSchedulerTask(String jobGroup, String jobName, UpdateJobRequest updateJobRequest) {
+    public static SchedulerTask generateSchedulerTask(String jobName, String jobGroup, UpdateJobRequest updateJobRequest) {
         SchedulerTask schedulerTask = new SchedulerTask();
 
         schedulerTask.setJobName(jobName);
@@ -56,7 +58,7 @@ public class SchedulerTaskFactory {
         schedulerTask.setJobTriggerGroupName(jobGroup);
 
         JobDataMap jobDataMap = new JobDataMap();
-        jobDataMap.put("url", updateJobRequest.url);
+        jobDataMap.put(URL, updateJobRequest.url);
         schedulerTask.setJobDataMap(jobDataMap);
 
         return schedulerTask;

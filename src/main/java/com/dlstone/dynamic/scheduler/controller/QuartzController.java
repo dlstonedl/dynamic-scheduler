@@ -33,7 +33,7 @@ public class QuartzController {
 
     @DeleteMapping("/jobs/{jobGroup}/{jobName}")
     public ResponseEntity deleteJob(@PathVariable String jobGroup, @PathVariable String jobName) {
-        quartzService.deleteJob(jobGroup, jobName);
+        quartzService.deleteJob(jobName, jobGroup);
         return ResponseEntity.ok().build();
     }
 
@@ -41,7 +41,7 @@ public class QuartzController {
     public ResponseEntity updateJob(@PathVariable String jobGroup,
                                     @PathVariable String jobName,
                                     @RequestBody UpdateJobRequest updateJobRequest) {
-        quartzService.updateJob(SchedulerTaskFactory.generateSchedulerTask(jobGroup, jobName, updateJobRequest));
+        quartzService.updateJob(SchedulerTaskFactory.generateSchedulerTask(jobName, jobGroup, updateJobRequest));
         return ResponseEntity.ok().build();
     }
 }

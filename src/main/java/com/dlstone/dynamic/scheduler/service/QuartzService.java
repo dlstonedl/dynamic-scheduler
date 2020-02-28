@@ -52,7 +52,7 @@ public class QuartzService {
     }
 
     @Transactional
-    public void deleteJob(String jobGroup, String jobName) {
+    public void deleteJob(String jobName, String jobGroup) {
         schedulerWrapper.deleteJob(new JobKey(jobName, jobGroup));
     }
 
