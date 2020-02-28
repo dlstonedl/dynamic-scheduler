@@ -9,6 +9,7 @@ import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,10 +42,16 @@ public class QuartzService {
             .collect(Collectors.toList());
     }
 
+    @Transactional
     public void addJob(SchedulerTask schedulerTask) {
         JobDetail jobDetail = newJobDetail(schedulerTask, schedulerWrapper);
         CronTrigger cronTrigger = newCronTrigger(schedulerTask, jobDetail);
         schedulerWrapper.scheduleJob(jobDetail, cronTrigger);
+    }
+
+    @Transactional
+    public void deleteJob(String jobGroup, String jobName) {
+        schedulerWrapper.deleteJob(new JobKey(jobGroup, jobName));
     }
 
     private CronTrigger newCronTrigger(SchedulerTask schedulerTask, JobDetail jobDetail) {

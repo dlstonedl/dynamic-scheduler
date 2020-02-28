@@ -84,7 +84,14 @@ public class SchedulerWrapper {
         return null;
     }
 
-
+    public boolean deleteJob(JobKey jobKey) {
+        try {
+            return schedulerFactoryBean.getScheduler().deleteJob(jobKey);
+        } catch (SchedulerException e) {
+            throwRuntimeException(e);
+        }
+        return false;
+    }
 
     private void throwRuntimeException(SchedulerException e) {
         log.error("SchedulerWrapper: " + e);

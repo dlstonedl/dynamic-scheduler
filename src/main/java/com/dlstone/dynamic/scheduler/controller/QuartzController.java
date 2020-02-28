@@ -30,4 +30,10 @@ public class QuartzController {
         quartzService.addJob(schedulerTask);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/jobs/{jobGroup}/{jobName}")
+    public ResponseEntity deleteJob(@PathVariable String jobGroup, @PathVariable String jobName) {
+        quartzService.deleteJob(jobGroup, jobName);
+        return ResponseEntity.ok().build();
+    }
 }
