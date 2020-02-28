@@ -55,6 +55,7 @@ public class QuartzService {
         schedulerWrapper.deleteJob(new JobKey(jobGroup, jobName));
     }
 
+    @Transactional
     public void updateJob(SchedulerTask schedulerTask) {
         JobDetail jobDetail = newJobDetail(schedulerTask, schedulerWrapper);
         CronTrigger cronTrigger = newCronTrigger(schedulerTask, jobDetail);
