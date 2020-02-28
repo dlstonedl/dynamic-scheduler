@@ -70,6 +70,11 @@ public class QuartzService {
         schedulerWrapper.triggerJob(jobKey);
     }
 
+    public void pauseJob(String jobName, String jobGroup) {
+        JobKey jobKey = validateJobKey(jobName, jobGroup);
+        schedulerWrapper.pauseJob(jobKey);
+    }
+
     private JobKey validateJobKey(String jobName, String jobGroup) {
         JobKey jobKey = new JobKey(jobName, jobGroup);
         if (!schedulerWrapper.checkExists(jobKey)) {

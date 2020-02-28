@@ -109,6 +109,14 @@ public class SchedulerWrapper {
         }
     }
 
+    public void pauseJob(JobKey jobKey) {
+        try {
+            schedulerFactoryBean.getScheduler().pauseJob(jobKey);
+        } catch (SchedulerException e) {
+            throwRuntimeException(e);
+        }
+    }
+
     private void throwRuntimeException(SchedulerException e) {
         log.error("SchedulerWrapper: " + e);
         throw new RuntimeException(e);
