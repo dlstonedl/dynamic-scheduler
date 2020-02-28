@@ -22,6 +22,8 @@ spring:
       org.quartz.threadPool.threadCount: 25
       org.quartz.jobStore.isClustered: true
       org.quartz.jobStore.acquireTriggersWithinLock: true
+      # plugin
+      org.quartz.plugin.triggHistory.class: org.quartz.plugins.history.LoggingTriggerHistoryPlugin
 
 
 
