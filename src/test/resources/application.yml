@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:dynamic-scheduler;MODE=MYSQL
+    url: jdbc:h2:mem:dynamic-scheduler;MODE=MYSQL;
   quartz:
     job-store-type: jdbc
     jdbc:
@@ -20,6 +20,5 @@ spring:
       org.quartz.plugin.triggHistory.class: org.quartz.plugins.history.LoggingTriggerHistoryPlugin
       # listener
       org.quartz.jobListener.quartz.class: com.dlstone.dynamic.scheduler.listener.QuartzJobListener
-
-
-
+mybatis:
+  config-location: classpath:mybatis-config.xml

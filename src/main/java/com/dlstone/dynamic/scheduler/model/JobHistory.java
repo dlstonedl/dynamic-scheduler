@@ -2,6 +2,8 @@ package com.dlstone.dynamic.scheduler.model;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class JobHistory {
     private String id;
@@ -9,9 +11,9 @@ public class JobHistory {
     private String jobGroup;
     private String triggerName;
     private String triggerGroup;
-    private String jobStartTime;
-    private String jobEndTime;
-    private int jobDuration;
+    private LocalDateTime jobStartTime;
+    private LocalDateTime jobEndTime;
+    private long jobDuration;
     private String jobStatus;
     private String jobException;
 }

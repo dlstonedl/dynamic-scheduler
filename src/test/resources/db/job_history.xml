@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <job_history id="0" job_name="jobName" job_group="jobGroup"
+            trigger_name="triggerName" trigger_group="triggerGroup"
+            job_start_time="2020-02-29 01:14:11"/>
+</dataset>
