@@ -117,6 +117,14 @@ public class SchedulerWrapper {
         }
     }
 
+    public void resumeJob(JobKey jobKey) {
+        try {
+            schedulerFactoryBean.getScheduler().resumeJob(jobKey);
+        } catch (SchedulerException e) {
+            throwRuntimeException(e);
+        }
+    }
+
     private void throwRuntimeException(SchedulerException e) {
         log.error("SchedulerWrapper: " + e);
         throw new RuntimeException(e);

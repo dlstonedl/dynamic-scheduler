@@ -2,6 +2,7 @@ package com.dlstone.dynamic.scheduler.controller;
 
 import com.dlstone.dynamic.scheduler.controller.request.JobRequest;
 import com.dlstone.dynamic.scheduler.controller.request.UpdateJobRequest;
+import com.dlstone.dynamic.scheduler.model.JobAction;
 import com.dlstone.dynamic.scheduler.model.SchedulerTask;
 import com.dlstone.dynamic.scheduler.model.SchedulerTaskFactory;
 import com.dlstone.dynamic.scheduler.service.QuartzService;
@@ -45,10 +46,17 @@ public class QuartzController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/jobs/{jobGroup}/{jobName}/execution")
+    @PostMapping("/jobs/{jobGroup}/{jobName}/action")
     public ResponseEntity triggerJob(@PathVariable String jobGroup,
-                                     @PathVariable String jobName) {
-        quartzService.triggerJob(jobName, jobGroup);
+                                     @PathVariable String jobName,
+                                     @RequestParam JobAction jobAction) {
+        if (jobAction == JobAction.EXECUTE) {
+            quartzService.triggerJob(jobName, jobGroup);
+        } else if (jobAction == JobAction.PAUSE){
+            quartzService.pauseJob(jobName, jobGroup);
+        } else {
+            quartzService.resumeJob(jobName, jobGroup);
+        }
         return ResponseEntity.ok().build();
     }
 }
