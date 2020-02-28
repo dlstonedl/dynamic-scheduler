@@ -93,6 +93,14 @@ public class SchedulerWrapper {
         return false;
     }
 
+    public void scheduleJob(JobDetail jobDetail, Set<? extends Trigger> triggersForJob, boolean replace) {
+        try {
+            schedulerFactoryBean.getScheduler().scheduleJob(jobDetail, triggersForJob, replace);
+        } catch (SchedulerException e) {
+            throwRuntimeException(e);
+        }
+    }
+
     private void throwRuntimeException(SchedulerException e) {
         log.error("SchedulerWrapper: " + e);
         throw new RuntimeException(e);

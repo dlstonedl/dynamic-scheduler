@@ -4,6 +4,7 @@ import com.dlstone.dynamic.scheduler.configuration.JobTemplate;
 import com.dlstone.dynamic.scheduler.model.SchedulerTask;
 import com.dlstone.dynamic.scheduler.model.SchedulerTaskFactory;
 import com.dlstone.dynamic.scheduler.wrapper.SchedulerWrapper;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
@@ -52,6 +53,12 @@ public class QuartzService {
     @Transactional
     public void deleteJob(String jobGroup, String jobName) {
         schedulerWrapper.deleteJob(new JobKey(jobGroup, jobName));
+    }
+
+    public void updateJob(SchedulerTask schedulerTask) {
+        JobDetail jobDetail = newJobDetail(schedulerTask, schedulerWrapper);
+        CronTrigger cronTrigger = newCronTrigger(schedulerTask, jobDetail);
+        schedulerWrapper.scheduleJob(jobDetail, Sets.newHashSet(cronTrigger), true);
     }
 
     private CronTrigger newCronTrigger(SchedulerTask schedulerTask, JobDetail jobDetail) {

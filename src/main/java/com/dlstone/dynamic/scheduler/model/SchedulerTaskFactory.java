@@ -1,8 +1,8 @@
 package com.dlstone.dynamic.scheduler.model;
 
 import com.dlstone.dynamic.scheduler.controller.request.JobRequest;
+import com.dlstone.dynamic.scheduler.controller.request.UpdateJobRequest;
 import com.dlstone.dynamic.scheduler.wrapper.SchedulerWrapper;
-import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronTrigger;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -44,4 +44,22 @@ public class SchedulerTaskFactory {
 
         return schedulerTask;
     }
+
+    public static SchedulerTask generateSchedulerTask(String jobGroup, String jobName, UpdateJobRequest updateJobRequest) {
+        SchedulerTask schedulerTask = new SchedulerTask();
+
+        schedulerTask.setJobName(jobName);
+        schedulerTask.setJobGroup(jobGroup);
+        schedulerTask.setJobDescription(updateJobRequest.jobDescription);
+        schedulerTask.setJobTriggerCronExpression(updateJobRequest.cronExpression);
+        schedulerTask.setJobTriggerName(jobName);
+        schedulerTask.setJobTriggerGroupName(jobGroup);
+
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("url", updateJobRequest.url);
+        schedulerTask.setJobDataMap(jobDataMap);
+
+        return schedulerTask;
+    }
+
 }
