@@ -53,14 +53,26 @@ public class QuartzService {
 
     @Transactional
     public void deleteJob(String jobName, String jobGroup) {
-        schedulerWrapper.deleteJob(new JobKey(jobName, jobGroup));
+        JobKey jobKey = validateJobKey(jobName, jobGroup);
+        schedulerWrapper.deleteJob(jobKey);
     }
 
     @Transactional
     public void updateJob(SchedulerTask schedulerTask) {
-        JobDetail jobDetail = newJobDetail(schedulerTask, new JobKey(schedulerTask.getJobName(), schedulerTask.getJobGroup()));
+        JobKey jobKey = validateJobKey(schedulerTask.getJobName(), schedulerTask.getJobGroup());
+        JobDetail jobDetail = newJobDetail(schedulerTask, jobKey);
         CronTrigger cronTrigger = newCronTrigger(schedulerTask, jobDetail);
         schedulerWrapper.scheduleJob(jobDetail, Sets.newHashSet(cronTrigger), true);
+    }
+
+    private JobKey validateJobKey(String jobName, String jobGroup) {
+        JobKey jobKey = new JobKey(jobName, jobGroup);
+        if (!schedulerWrapper.checkExists(jobKey)) {
+            log.error("jobKey not exist, {}", jobKey);
+            throw new RuntimeException(String.format("jobKey not exist, jobName: %s, jobGroup: %s",
+                jobKey.getName(), jobKey.getGroup()));
+        }
+        return jobKey;
     }
 
     private CronTrigger newCronTrigger(SchedulerTask schedulerTask, JobDetail jobDetail) {
@@ -88,7 +100,8 @@ public class QuartzService {
         JobKey jobKey = new JobKey(schedulerTask.getJobName(), schedulerTask.getJobGroup());
         if (schedulerWrapper.checkExists(jobKey)) {
             log.error("jobKey exist, {}", jobKey);
-            throw new RuntimeException(String.format("job exist, jobName: %s, jobGroupName: %s", jobKey.getName(), jobKey.getGroup()));
+            throw new RuntimeException(String.format("job exist, jobName: %s, jobGroupName: %s",
+                jobKey.getName(), jobKey.getGroup()));
         }
         return jobKey;
     }
