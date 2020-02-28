@@ -32,6 +32,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'com.h2database:h2:1.4.190'
+    testImplementation 'org.dbunit:dbunit:2.5.4'
+    testCompile 'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
