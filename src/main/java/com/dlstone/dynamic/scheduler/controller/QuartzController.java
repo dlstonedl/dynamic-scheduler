@@ -44,4 +44,11 @@ public class QuartzController {
         quartzService.updateJob(SchedulerTaskFactory.generateSchedulerTask(jobName, jobGroup, updateJobRequest));
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/jobs/{jobGroup}/{jobName}/execution")
+    public ResponseEntity triggerJob(@PathVariable String jobGroup,
+                                     @PathVariable String jobName) {
+        quartzService.triggerJob(jobName, jobGroup);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -65,6 +65,11 @@ public class QuartzService {
         schedulerWrapper.scheduleJob(jobDetail, Sets.newHashSet(cronTrigger), true);
     }
 
+    public void triggerJob(String jobName, String jobGroup) {
+        JobKey jobKey = validateJobKey(jobName, jobGroup);
+        schedulerWrapper.triggerJob(jobKey);
+    }
+
     private JobKey validateJobKey(String jobName, String jobGroup) {
         JobKey jobKey = new JobKey(jobName, jobGroup);
         if (!schedulerWrapper.checkExists(jobKey)) {
