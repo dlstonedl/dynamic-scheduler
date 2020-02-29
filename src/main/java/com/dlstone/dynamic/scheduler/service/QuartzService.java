@@ -1,6 +1,6 @@
 package com.dlstone.dynamic.scheduler.service;
 
-import com.dlstone.dynamic.scheduler.configuration.JobTemplate;
+import com.dlstone.dynamic.scheduler.quartz.JobTemplate;
 import com.dlstone.dynamic.scheduler.model.SchedulerTask;
 import com.dlstone.dynamic.scheduler.model.SchedulerTaskFactory;
 import com.dlstone.dynamic.scheduler.quartz.wrapper.SchedulerWrapper;

@@ -1,4 +1,4 @@
-package com.dlstone.dynamic.scheduler.configuration;
+package com.dlstone.dynamic.scheduler.quartz;
 
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
