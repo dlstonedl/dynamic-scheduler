@@ -1,5 +1,5 @@
 # dynamic-scheduler
-基于**quartz**二次开发，实现动态配置定时任务，此外会新增部分quartz未提供的特性。
+基于**quartz**二次开发，实现动态配置定时任务，此外会新增部分**quartz**未提供的特性。
 应用接口文档由**swagger**自动生成，可通过**swagger-ui**查看。
 
 ### 主要特性
