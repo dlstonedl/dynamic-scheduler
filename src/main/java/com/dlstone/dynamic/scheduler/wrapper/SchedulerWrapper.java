@@ -1,5 +1,6 @@
 package com.dlstone.dynamic.scheduler.wrapper;
 
+import com.dlstone.dynamic.scheduler.listener.QuartzJobListener;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
@@ -17,8 +18,9 @@ public class SchedulerWrapper {
 
     private SchedulerFactoryBean schedulerFactoryBean;
 
-    public SchedulerWrapper(SchedulerFactoryBean schedulerFactoryBean) {
+    public SchedulerWrapper(SchedulerFactoryBean schedulerFactoryBean, QuartzJobListener quartzJobListener) throws SchedulerException {
         this.schedulerFactoryBean = schedulerFactoryBean;
+        this.schedulerFactoryBean.getScheduler().getListenerManager().addJobListener(quartzJobListener);
     }
 
     public List<String> getJobGroupNames() {
