@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,8 +31,8 @@ public class JobHistoryMapperTest extends DbTestBase {
     @Test
     @DatabaseSetup("/db/job_history.xml")
     public void should_return_job_history() {
-        JobHistory jobHistory = jobHistoryMapper.findJobHistory("jobName", "jobGroup");
-        assertThat(jobHistory).isNotNull();
+        List<JobHistory> jobHistories = jobHistoryMapper.findJobHistories("jobName", "jobGroup");
+        assertThat(jobHistories.size()).isEqualTo(1);
     }
 
     @Test
@@ -41,8 +42,8 @@ public class JobHistoryMapperTest extends DbTestBase {
         jobHistory.setId("0");
         jobHistory.setJobEndTime(LocalDateTime.now());
         jobHistoryMapper.updateJonHistory(jobHistory);
-        JobHistory newJobHistory = jobHistoryMapper.findJobHistory("jobName", "jobGroup");
-        assertThat(newJobHistory.getJobEndTime()).isNotNull();
+        List<JobHistory> jobHistories = jobHistoryMapper.findJobHistories("jobName", "jobGroup");
+        assertThat(jobHistories.get(0).getJobEndTime()).isNotNull();
     }
 
 }

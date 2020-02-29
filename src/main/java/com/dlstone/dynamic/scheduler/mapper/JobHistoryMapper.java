@@ -4,6 +4,8 @@ import com.dlstone.dynamic.scheduler.model.JobHistory;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface JobHistoryMapper {
@@ -21,6 +23,6 @@ public interface JobHistoryMapper {
         "where id = #{id}")
     void updateJonHistory(JobHistory jobHistory);
 
-    @Select("select * from job_history where job_name = #{jobName} and job_group = #{jobGroup}")
-    JobHistory findJobHistory(@Param("jobName") String jobName, @Param("jobGroup") String jobGroup);
+    @Select("select * from job_history where job_name = #{jobName} and job_group = #{jobGroup} order by id desc limit 10")
+    List<JobHistory> findJobHistories(@Param("jobName") String jobName, @Param("jobGroup") String jobGroup);
 }
