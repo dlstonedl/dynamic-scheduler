@@ -1,8 +1,15 @@
 # dynamic-scheduler
-基于**quartz**二次开发，动态配置定时任务。通过接口提供对应参数，即可动态配置任务
+基于**quartz**二次开发，实现动态配置定时任务，此外会新增部分quartz未提供的特性。
+应用接口文档由**swagger**自动生成，可通过**swagger-ui**查看。
 
+### 主要特性
+- 查询所有任务
+- 任务基本操作：添加，修改，删除；支持配置POST(url), cron表达式
+- 任务运行时操作：立即执行(EXECUTE)，暂停(PAUSE), 从暂停中恢复(RESUME)
+- 新增特性: 任务历史执行信息查询(最近10条)
+
+### 示例：新增任务
 ```
-# 新增任务
 # POST http://localhost:8080/quartz/jobs
 {
 	"jobName": "job-hello",
@@ -12,12 +19,6 @@
 	"cronExpression": "0/1 * * * * ?"
 }
 ```
-
-### 主要特性
-- 查询所有任务
-- 任务基本操作：添加，修改，删除；支持配置POST(url), cron表达式
-- 任务运行时操作：立即执行(EXECUTE)，暂停(PAUSE), 从暂停中恢复(RESUME)
-- 新增特性: 任务历史执行信息查询(最近10条)
 
 ### swagger
 ```
