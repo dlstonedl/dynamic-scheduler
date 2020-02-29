@@ -2,7 +2,7 @@ package com.dlstone.dynamic.scheduler.model;
 
 import com.dlstone.dynamic.scheduler.controller.request.JobRequest;
 import com.dlstone.dynamic.scheduler.controller.request.UpdateJobRequest;
-import com.dlstone.dynamic.scheduler.wrapper.SchedulerWrapper;
+import com.dlstone.dynamic.scheduler.quartz.wrapper.SchedulerWrapper;
 import org.quartz.CronTrigger;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;

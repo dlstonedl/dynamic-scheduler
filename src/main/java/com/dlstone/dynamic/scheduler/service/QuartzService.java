@@ -3,7 +3,7 @@ package com.dlstone.dynamic.scheduler.service;
 import com.dlstone.dynamic.scheduler.configuration.JobTemplate;
 import com.dlstone.dynamic.scheduler.model.SchedulerTask;
 import com.dlstone.dynamic.scheduler.model.SchedulerTaskFactory;
-import com.dlstone.dynamic.scheduler.wrapper.SchedulerWrapper;
+import com.dlstone.dynamic.scheduler.quartz.wrapper.SchedulerWrapper;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;

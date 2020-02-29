@@ -1,4 +1,4 @@
-package com.dlstone.dynamic.scheduler.wrapper;
+package com.dlstone.dynamic.scheduler.quartz.wrapper;
 
 import com.dlstone.dynamic.scheduler.listener.QuartzJobListener;
 import lombok.extern.slf4j.Slf4j;
