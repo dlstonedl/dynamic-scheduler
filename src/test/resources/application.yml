@@ -18,7 +18,5 @@ spring:
       org.quartz.jobStore.acquireTriggersWithinLock: true
       # plugin
       org.quartz.plugin.triggHistory.class: org.quartz.plugins.history.LoggingTriggerHistoryPlugin
-      # listener
-      org.quartz.jobListener.quartz.class: com.dlstone.dynamic.scheduler.listener.QuartzJobListener
 mybatis:
   config-location: classpath:mybatis-config.xml
