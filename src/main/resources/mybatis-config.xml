@@ -8,6 +8,6 @@
     </settings>
 
     <typeHandlers>
-        <typeHandler handler="com.dlstone.dynamic.scheduler.configuration.LocalDateTimeTypeHandler"/>
+        <typeHandler handler="com.dlstone.dynamic.scheduler.common.mybatis.LocalDateTimeTypeHandler"/>
     </typeHandlers>
 </configuration>

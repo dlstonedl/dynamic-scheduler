@@ -1,4 +1,4 @@
-package com.dlstone.dynamic.scheduler.configuration;
+package com.dlstone.dynamic.scheduler.common.mybatis;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
