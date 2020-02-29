@@ -1,6 +1,6 @@
 package com.dlstone.dynamic.scheduler.quartz.wrapper;
 
-import com.dlstone.dynamic.scheduler.listener.QuartzJobListener;
+import com.dlstone.dynamic.scheduler.quartz.listener.QuartzJobListener;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;

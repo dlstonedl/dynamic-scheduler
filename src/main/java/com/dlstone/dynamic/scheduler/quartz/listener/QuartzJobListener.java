@@ -1,4 +1,4 @@
-package com.dlstone.dynamic.scheduler.listener;
+package com.dlstone.dynamic.scheduler.quartz.listener;
 
 import com.dlstone.dynamic.scheduler.mapper.JobHistoryMapper;
 import com.dlstone.dynamic.scheduler.model.JobHistory;
