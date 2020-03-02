@@ -3,4 +3,7 @@
     <job_history id="0" job_name="jobName" job_group="jobGroup"
             trigger_name="triggerName" trigger_group="triggerGroup"
             job_start_time="2020-02-29 01:14:11"/>
+    <job_history id="1" job_name="jobName" job_group="jobGroup"
+                 trigger_name="triggerName" trigger_group="triggerGroup"
+                 job_start_time="2020-02-29 02:14:11"/>
 </dataset>

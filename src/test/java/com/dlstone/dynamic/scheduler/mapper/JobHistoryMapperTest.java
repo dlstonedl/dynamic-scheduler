@@ -30,20 +30,15 @@ public class JobHistoryMapperTest extends DbTestBase {
 
     @Test
     @DatabaseSetup("/db/job_history.xml")
-    public void should_return_job_history() {
+    public void should_return_job_histories() {
         List<JobHistory> jobHistories = jobHistoryMapper.findJobHistories("jobName", "jobGroup");
-        assertThat(jobHistories.size()).isEqualTo(1);
+        assertThat(jobHistories.size()).isEqualTo(2);
     }
 
     @Test
     @DatabaseSetup("/db/job_history.xml")
-    public void should_update_job_history() {
-        JobHistory jobHistory = new JobHistory();
-        jobHistory.setId("0");
-        jobHistory.setJobEndTime(LocalDateTime.now());
-        jobHistoryMapper.updateJonHistory(jobHistory);
-        List<JobHistory> jobHistories = jobHistoryMapper.findJobHistories("jobName", "jobGroup");
-        assertThat(jobHistories.get(0).getJobEndTime()).isNotNull();
+    public void should_return_a_job_history() {
+        JobHistory jobHistory = jobHistoryMapper.findJobHistory("jobName", "jobGroup");
+        assertThat(jobHistory.getId()).isEqualTo("1");
     }
-
 }
