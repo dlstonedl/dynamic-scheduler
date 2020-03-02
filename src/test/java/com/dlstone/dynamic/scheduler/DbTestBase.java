@@ -14,6 +14,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
     DependencyInjectionTestExecutionListener.class,
     DbUnitTestExecutionListener.class
 })
-@DbUnitConfiguration(databaseConnection = {"quartz"})
+@DbUnitConfiguration(databaseConnection = {"dbUnitDatabaseConnection"})
 public abstract class DbTestBase {
 }
