@@ -1,5 +1,7 @@
 package com.dlstone.dynamic.scheduler.service;
 
+import com.dlstone.dynamic.scheduler.mapper.JobHistoryMapper;
+import com.dlstone.dynamic.scheduler.model.JobHistory;
 import com.dlstone.dynamic.scheduler.quartz.JobTemplate;
 import com.dlstone.dynamic.scheduler.model.SchedulerTask;
 import com.dlstone.dynamic.scheduler.model.SchedulerTaskFactory;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,17 +25,32 @@ import java.util.stream.Collectors;
 public class QuartzService {
 
     private SchedulerWrapper schedulerWrapper;
+    private JobHistoryMapper jobHistoryMapper;
 
     @Autowired
-    public QuartzService(SchedulerWrapper schedulerWrapper) {
+    public QuartzService(SchedulerWrapper schedulerWrapper, JobHistoryMapper jobHistoryMapper) {
         this.schedulerWrapper = schedulerWrapper;
+        this.jobHistoryMapper = jobHistoryMapper;
     }
 
     public List<SchedulerTask> getAllSchedulerTasks() {
-        return schedulerWrapper.getJobGroupNames()
+        List<SchedulerTask> schedulerTasks = schedulerWrapper.getJobGroupNames()
             .stream()
             .flatMap(groupName -> schedulerWrapper.getJobKeys(GroupMatcher.jobGroupEquals(groupName)).stream())
             .flatMap(jobKey -> getSchedulerTasksByJobKey(schedulerWrapper, jobKey).stream())
+            .collect(Collectors.toList());
+
+        return assembleLatestJobHistory(schedulerTasks);
+    }
+
+    private List<SchedulerTask> assembleLatestJobHistory(List<SchedulerTask> schedulerTasks) {
+        Map<String, JobHistory> jobHistoryMap = jobHistoryMapper.findAllLatestJobHistories()
+            .stream()
+            .collect(Collectors.toMap(jobHistory -> jobHistory.getJobName() + jobHistory.getJobGroup(), Function.identity()));
+
+        return schedulerTasks
+            .stream()
+            .peek(schedulerTask -> jobHistoryMap.getOrDefault(schedulerTask.getJobName() + schedulerTask.getJobGroup(), null))
             .collect(Collectors.toList());
     }
 
