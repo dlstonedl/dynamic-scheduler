@@ -22,4 +22,7 @@ public interface JobHistoryMapper {
 
     @Select("select * from job_history where job_name = #{jobName} and job_group = #{jobGroup} order by id desc limit 1")
     JobHistory findJobHistory(@Param("jobName") String jobName, @Param("jobGroup") String jobGroup);
+
+    @Select("select * from job_history where id in (select max(id) from job_history group by job_name, Job_group)")
+    List<JobHistory> findAllLatestJobHistories();
 }
