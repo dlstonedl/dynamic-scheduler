@@ -14,4 +14,5 @@ public class SchedulerTask {
     private String jobTriggerGroupName;
     private String jobTriggerDescription;
     private JobDataMap jobDataMap;
+    private JobHistory latestJobHistory;
 }
