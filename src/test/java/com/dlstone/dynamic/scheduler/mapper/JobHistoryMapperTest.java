@@ -41,4 +41,12 @@ public class JobHistoryMapperTest extends DbTestBase {
         JobHistory jobHistory = jobHistoryMapper.findJobHistory("jobName", "jobGroup");
         assertThat(jobHistory.getId()).isEqualTo("1");
     }
+
+    @Test
+    @DatabaseSetup("/db/job_history.xml")
+    public void should_return_latest_job_histories() {
+        List<JobHistory> allLatestJobHistories = jobHistoryMapper.findAllLatestJobHistories();
+        assertThat(allLatestJobHistories.size()).isEqualTo(1);
+        assertThat(allLatestJobHistories.get(0).getId()).isEqualTo("1");
+    }
 }
