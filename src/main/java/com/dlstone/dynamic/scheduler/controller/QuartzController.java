@@ -32,13 +32,13 @@ public class QuartzController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/jobs/{jobGroup}/{jobName}")
+    @DeleteMapping("/jobs/job/{jobGroup}/{jobName}")
     public ResponseEntity deleteJob(@PathVariable String jobGroup, @PathVariable String jobName) {
         quartzService.deleteJob(jobName, jobGroup);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/jobs/{jobGroup}/{jobName}")
+    @PutMapping("/jobs/job/{jobGroup}/{jobName}")
     public ResponseEntity updateJob(@PathVariable String jobGroup,
                                     @PathVariable String jobName,
                                     @RequestBody UpdateJobRequest updateJobRequest) {
@@ -46,7 +46,7 @@ public class QuartzController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/jobs/{jobGroup}/{jobName}/action")
+    @PostMapping("/jobs/job/{jobGroup}/{jobName}/action")
     public ResponseEntity triggerJob(@PathVariable String jobGroup,
                                      @PathVariable String jobName,
                                      @RequestParam JobAction jobAction) {
